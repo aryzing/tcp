@@ -14,6 +14,14 @@ void HandleTCPClient(int clntSocket)
   if ((recvMsgSize = recv(clntSocket, echoBuffer, RCVBUFSIZE, 0)) < 0)
     DieWithError("recv() failed");
 
+  if (recvMsgSize == 1)
+    printf("Received 1 byte as expected");
+  else
+    printf("Received unexpected number of bytes");
+
+  if (echoBuffer[0] == 1)
+    printf("Received expected value on first byte");
+
   while (recvMsgSize > 0)
   {
     if (send(clntSocket, echoBuffer, recvMsgSize, 0) != recvMsgSize)
